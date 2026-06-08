@@ -143,3 +143,21 @@ AICc(
 ```
 
 The best model for predicting the probability of bird nest presence as determined by Akaike's Information Criterion (AIC) is the model of interaction between tree height (cm) and ant species, demonstrated by the lower AIC value. 
+
+## g. Check the Diagnostics
+
+```{r}
+#| label: DHARMa Diagnostic Check
+#| message: false
+#| warning: false
+#| fig-height: 8
+#| fig-width: 10
+
+# check diagnostic with DHARMa 
+plot(
+  simulateResiduals(nest_model1)
+)
+```
+
+## h. Visualize the Model Predictions
+
