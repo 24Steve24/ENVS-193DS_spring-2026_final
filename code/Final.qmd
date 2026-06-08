@@ -44,8 +44,10 @@ In part 1, the researchers used a Generalized Linear Model (GLM) to reach their 
 ## b. Suggestions for rewriting
 
 ### Part 1. 
-We found that the distance to water edge does act as a predictor for the likelihood American Avocet use microhabitat.
+We found that American Avocets do not use microhabitats in a random fashion, but rather with respect to distance to water edge. In this sense, distance to a water edge acts as a predictor for the likelihood American Avocet use a microhabitat.
 
 ### Part 2.
-When looking at the distribution of American Avocet, Forster's Tern, and Black-necked Stilt, we found that there is a relationship between a bird's species and its habitat. This conclusion takes into consideration managed pond, non-tidal marsh, salt pond, tidal marsh, and tidal mudflat as habitats.
+When looking at the distribution of American Avocet, Forster's Tern, and Black-necked Stilt, we found that each species was not spread randomly among habitats. Rather, each species presence differed based on habitat. This conclusion takes into consideration managed pond, non-tidal marsh, salt pond, tidal marsh, and tidal mudflat as habitats.
 
+## c. Further Analysis
+Another variable that could influence the probability of American Avocet microhabitat use is the predator abundance, which could be count data or categorical with pre determined levels from low presence to high presence of predators. This variable will influence American Avocet habitat use because this species might avoid areas with high concentrations of predators as they pose a risk for injury, mortality, and reduce reproductive success. 
