@@ -3,7 +3,7 @@ title: "ENVS 193DS Final"
 Author: "Stephen Bond"
 Data: "2026/06/09"
 format: 
-  html:
+  pdf:
     toc: true # display table of contents
 execute:
   message: false # remove messages
@@ -51,3 +51,40 @@ When looking at the distribution of American Avocet, Forster's Tern, and Black-n
 
 ## c. Further Analysis
 Another variable that could influence the probability of American Avocet microhabitat use is the predator abundance, which could be count data or categorical with pre determined levels from low presence to high presence of predators. This variable will influence American Avocet habitat use because this species might avoid areas with high concentrations of predators as they pose a risk for injury, mortality, and reduce reproductive success. 
+
+# Problem 2. Data Analysis
+
+## a. Clean and Wrangle
+```{r}
+#| label: Clean and Wrangle
+#| message: false
+#| warning: false
+
+# create new object, nest_clean
+nests_clean <- nests |>
+  # keep only height, bird species, and ant species
+  select(height_cm, case_control, ant_species) |>
+  # filter to include on C. mimosae, C. sjostedti, and C. nigriceps
+  filter(ant_species %in% c("AB", "RRB", "BBR")) |>
+  # order the species
+  mutate(ant_species =
+           as_factor(ant_species),
+         ant_species = fct_relevel(ant_species,
+                                   "AB",
+                                   "RRB",
+                                   "BBR")) |>
+  # create new column for scientific species names
+  mutate(scientific_name = case_match(
+    ant_species,
+    "AB" ~ "Crematogaster sjostedti", #C. sjostedti
+    "RRB" ~ "Crematogaster mimosae", # C. mimosae
+    "BBR" ~ "Crematogaster nigriceps" # C. nigriceps
+  ))
+
+# display new structure of the data
+str(nests_clean)
+
+# display 10 random rows from data
+slice_sample(nests_clean, n =10)
+```
+
