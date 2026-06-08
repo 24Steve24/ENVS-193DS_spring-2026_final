@@ -88,3 +88,44 @@ str(nests_clean)
 slice_sample(nests_clean, n =10)
 ```
 
+## b. Response Variable
+
+The 1s and 0s in the case_control column indicates whether or not a tree contained a nest. If a data point has a 1 this indicates the tree contains a nest, whereas a 0 indicates the tree did not contain a nest and was "available" for comparison.
+
+## c. Purpose of Study
+
+### Tree Height
+Tree height is a numerical, continuous variable measured in cm. This variable can influence the probability of nest occurrence because as tree height increases  
+
+### Acacia Ant Species
+This is where I will describe the variable 
+
+## d. Table of Models
+
+| Model number | Ant Species | Tree Height |          Model description             | 
+|--------------|:-----------:|:-----------:|:--------------------------------------:| 
+| 0            |      X      |      X      | All predictors (No Interaction term, +)|
+| 1            |      X      |      X      | All predictors (Interaction term, *)   |
+## e. Run the Models
+
+```{r}
+#| label: Run the Models
+#| output: false
+#| message: false
+#| warning: false
+
+# model 0: all predictors, no interaction term
+nest_model0 <- glm(case_control ~ ant_species + height_cm, 
+                   # no interaction model variables
+                   data = nests_clean, # use clean dataset
+                   family = binomial) # set to binomial
+
+# model 1: all predictors, interaction term
+nest_model1 <- glm(case_control ~ ant_species * height_cm,
+                   # interaction model variables
+                   data = nests_clean, # use clean data set
+                   family = binomial) # set to binomial
+```
+
+
+
