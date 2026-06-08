@@ -1,0 +1,37 @@
+---
+title: "ENVS 193DS Final"
+Author: "Stephen Bond"
+Data: "2026/06/09"
+format: 
+  html:
+    toc: true # display table of contents
+execute:
+  message: false # remove messages
+  warning: false # remove warnings
+---
+
+[GitHub Repo](https://github.com/24Steve24/ENVS-193DS_spring-2026_final)
+
+# Set Up
+
+```{r}
+#| label: Read in Packages and Data
+#| message: false
+#| warning: false
+
+# loading in packages
+library(tidyverse) # general use
+library(janitor) # cleaning data
+library(here) # organizing files
+library(rstatix) # statistical relationships
+library(MuMIn) # modelling
+library(DHARMa) # residual diagnostic simulation
+library(ggeffects) # model predictions
+library(ggplot2) # visualizations
+
+# read in data
+nests <- read_csv(here("data", "nest_data_final.csv")) # read in and make object for nest data
+dinner <- read_csv(here("data", "Dinner_Data.csv")) # read in and make object for personal data
+
+```
+
