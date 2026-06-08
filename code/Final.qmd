@@ -127,5 +127,19 @@ nest_model1 <- glm(case_control ~ ant_species * height_cm,
                    family = binomial) # set to binomial
 ```
 
+## f. Select the Best Model
 
+```{r}
+#| label: Select Best Model
+#| message: false
+#| warning: false
 
+# calculate AIC
+AICc(
+  nest_model0,
+  nest_model1
+) |>
+  arrange(AICc)
+```
+
+The best model for predicting the probability of bird nest presence as determined by Akaike's Information Criterion (AIC) is the model of interaction between tree height (cm) and ant species, demonstrated by the lower AIC value. 
