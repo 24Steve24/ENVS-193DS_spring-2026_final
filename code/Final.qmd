@@ -249,3 +249,12 @@ ggpredict(nest_model1, # use model 1 w/ interaction
                    "scientific_name")) # 2nd term = ant species
 ```
 
+## k. Interpret your Results
+
+According to the results from part j., at tree height of 600 cm, the probability of bird nest occurrence with Crematogaster sjostedti present is 0.2 (95% CI: [0.00, 0.99]), with Crematogaster mimosae present is 0,74 (95% CI:[0.48, 0.90]), and with Crematogaster nigriceps present is 1.00 (95% CI: [1.00, 1.00]). According to both figure 1. and the prediction probabilities from the output of part j., there is a relationship between birds' preference to nest in trees inhabited by Crematogaster mimosae and Crematogaster nigriceps as nesting probability increases steeply with tree height for both species. Figure 1. demonstrates how the prediction probability curve increases steeply as tree height increases for C. mimosae and C. nigriceps which is also reflected in the predicted probabilities being large values of 0.74 and 1.00 respectively at 600 cm; however, when observing the C. sjostedti the figure remains relatively flat across all heights and only reaches a probability of 0.2 at 600 cm in part j. Biologically, this preference for trees inhabited by aggressive ant species (Crematogaster mimosae and Crematogaster nigriceps) occurs because the ants do not directly interfere with adults and offspring and actually reduce the risk of bird predation, whereas the Crematogaster sjostedti only provides minimal protection. There is a greater preference towards Crematogaster nifriceps because this species prunes, shortening shoots and creating defensive canopies that provide further protection for birds from predators like snakes, mesocarnivores, and raptors.
+
+# Problem 3. Affective and Exploratory Visualizations
+
+## a. Comparing Visualizations
+
+- 
