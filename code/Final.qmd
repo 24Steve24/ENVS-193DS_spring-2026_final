@@ -30,8 +30,10 @@ library(ggeffects) # model predictions
 library(ggplot2) # visualizations
 
 # read in data
-nests <- read_csv(here("data", "nest_data_final.csv")) # read in and make object for nest data
-dinner <- read_csv(here("data", "Dinner_Data.csv")) # read in and make object for personal data
+nests <- read_csv(here("data", "nest_data_final.csv")) 
+# read in and make object for nest data
+dinner <- read_csv(here("data", "Dinner_Data.csv")) 
+# read in and make object for personal data
 
 ```
 
@@ -66,20 +68,20 @@ nests_clean <- nests |>
   select(height_cm, case_control, ant_species) |>
   # filter to include on C. mimosae, C. sjostedti, and C. nigriceps
   filter(ant_species %in% c("AB", "RRB", "BBR")) |>
-  # order the species
-  mutate(ant_species =
-           as_factor(ant_species),
-         ant_species = fct_relevel(ant_species,
-                                   "AB",
-                                   "RRB",
-                                   "BBR")) |>
   # create new column for scientific species names
   mutate(scientific_name = case_match(
     ant_species,
     "AB" ~ "Crematogaster sjostedti", #C. sjostedti
     "RRB" ~ "Crematogaster mimosae", # C. mimosae
     "BBR" ~ "Crematogaster nigriceps" # C. nigriceps
-  ))
+  )) |>
+  # order the species
+  mutate(scientific_name =
+           as_factor(scientific_name),
+         scientific_name = fct_relevel(scientific_name,
+                                   "Crematogaster sjostedti",
+                                   "Crematogaster mimosae",
+                                   "Crematogaster nigriceps"))
 
 # display new structure of the data
 str(nests_clean)
@@ -115,13 +117,13 @@ This is where I will describe the variable
 #| warning: false
 
 # model 0: all predictors, no interaction term
-nest_model0 <- glm(case_control ~ ant_species + height_cm, 
+nest_model0 <- glm(case_control ~ scientific_name + height_cm, 
                    # no interaction model variables
                    data = nests_clean, # use clean dataset
                    family = binomial) # set to binomial
 
 # model 1: all predictors, interaction term
-nest_model1 <- glm(case_control ~ ant_species * height_cm,
+nest_model1 <- glm(case_control ~ scientific_name * height_cm,
                    # interaction model variables
                    data = nests_clean, # use clean data set
                    family = binomial) # set to binomial
@@ -161,3 +163,77 @@ plot(
 
 ## h. Visualize the Model Predictions
 
+```{r}
+#| label: model-prediction
+#| warning: false
+#| message: false
+
+# create preds object
+preds <- ggpredict(
+  nest_model1, # model object 1
+  terms = c("height_cm[all]", "scientific_name") 
+  # predictors height and scientific name
+  )
+
+# add scientific_name column for wrap in visualization
+preds$scientific_name <- preds$group
+```
+
+```{r}
+#| label: create visualization
+#| warning: false
+#| message: false
+
+# base layer: ggplot
+ggplot(data = nests_clean,
+       mapping = aes(x = height_cm,
+                     y = case_control,
+                     color = as.factor(scientific_name))) +
+  # relabelling x- and y-axis
+  labs(x = "Height of Acacia (cm)", # x-axis height
+       y = "Predicted Nest Presence", # y-axis nest probability
+       color = "scientific_name", # color by ant species
+       title = 
+         "Predicted Nest Presence by Ant Species and Acacia Height (cm)")+ 
+  # add tile
+  # manually change ant colors
+  scale_color_manual(values = c("Crematogaster sjostedti" = "lightblue",
+                                "Crematogaster mimosae" = "firebrick",
+                                "Crematogaster nigriceps" = "darkgreen")) +
+  scale_fill_manual(values = c("Crematogaster sjostedti" = "lightblue",
+                                "Crematogaster mimosae" = "firebrick",
+                                "Crematogaster nigriceps" = "darkgreen")) +
+  # change theme from default
+  theme_classic() +
+  # remove gridlines and background
+  theme(panel.background = element_rect()) +
+  # remove legend
+  theme(legend.position = "none") +
+  # first layer: geom points, showing underlying data
+  geom_point(mapping = aes(x = height_cm, # x-axis: aciacia height
+                           y = case_control, # y-axis: nest occurence
+                           color = scientific_name), # set to selected colors
+             shape = 21, # change shape 
+             alpha = 0.4,# make slightly transparent
+             inherit.aes = FALSE) + # ignore global aes for colors
+  # second layer: geom line, showing predictions
+  geom_line(data = preds, # data from model 1 prediction
+            mapping = aes(x = x, # x-axis height of acacia
+                          y = predicted, # y axis: prediction probability
+                          color = group), # color by ant
+            linewidth = 1) +
+  # third layer: ribbon (confidence interval)
+  geom_ribbon(data = preds, # data from model 1 prediction
+              mapping = aes(x = x, # x-axis height of acacia
+                            ymin = conf.low, # set low value
+                            ymax = conf.high, # set high value
+                            fill = group), # fill by ant species
+              inherit.aes = FALSE, # ignore global aes       
+              alpha = 0.1) + # make transparent
+  # make new panel for each ant species
+  facet_wrap(~ scientific_name)
+```
+
+## i. Write a Caption for your Figure
+
+***Figure 1. Probability of bird nest occurrence ***
