@@ -180,7 +180,7 @@ preds$scientific_name <- preds$group
 ```
 
 ```{r}
-#| label: create visualization
+#| label: creating visualization
 #| warning: false
 #| message: false
 
