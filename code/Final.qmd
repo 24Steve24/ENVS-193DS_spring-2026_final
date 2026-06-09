@@ -240,3 +240,12 @@ ggplot(data = nests_clean,
 
 ## j. Calculate Model Predictions
 
+```{r}
+#| label: Calculate probability at 600 cm
+
+# running ggpredict for model prediction at height of 600cm
+ggpredict(nest_model1, # use model 1 w/ interaction
+          terms = c("height_cm [600]", # 1st term = height 600 cm
+                   "scientific_name")) # 2nd term = ant species
+```
+
