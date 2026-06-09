@@ -236,4 +236,7 @@ ggplot(data = nests_clean,
 
 ## i. Write a Caption for your Figure
 
-***Figure 1. Probability of bird nest occurrence ***
+***Figure 1. Probability of bird nest occurrence differs depending on the ant species present and acacia tree height*** Each figure separates the data, the prediction of nest occurrence given tree height (cm), and the 95% confidence interval based on ant species. The blue figure depicts data associated with the Crematogaster sjostedti, the red figure depicts data associated with Crematogaster mimosae, and the green figure represents data associated with Crematofaster nigriceps. Circles represent individual observations of nest occruences in each scenario, the lines represent model predictions of the porbability of nest occurences given tree height (cm) and ant species, and the ribbon represents the 95% confidence interval. Data originally from, Lujan, E., et al. (2023). Data, code, and metadata for: Symbiotic acacia ants drive nesting behavior by birds in an African savanna. Zenodo. https://doi.org/10.5281/zenodo.8373322
+
+## j. Calculate Model Predictions
+
