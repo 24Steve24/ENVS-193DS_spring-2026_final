@@ -329,7 +329,7 @@ plot(
 
 The DHARMa diagnostic, demonstrates through the QQ plot that the residuals follow a uniform distribution since the points follow the red guideline and has a KS test value of p = 0.879. Additionally the dispersion test and outlier tell us no residuals experience a significant amount of dispersion or act as outlines impacting results. Additionally the right figure tells us that no significant problems were detected between the residuals and predicted.
 
-### Share Model Coefficients 
+### Model Coefficients and Calculating Probabilities
 
 ```{r}
 #| label: Share Model Coefficients
@@ -349,3 +349,52 @@ ggpredict(dinner_mod,
           terms = "time_worked_hours [8]")
 ```
 
+## d. Create a Visualization
+
+```{r}
+#| label: Create Visualization
+#| message: false
+#| warning: false
+
+# create pred_dinner object
+preds_dinner <- ggpredict(
+  dinner_mod, # use dinner model
+  terms = c("time_worked_hours [all]")
+) # predictor is time worked
+
+# base layer: ggplot
+ggplot(data = dinner_clean, # data from dinner_clean
+       mapping = aes(x = time_worked_hours,
+                     y = cooked_at_home_y_n)) +
+  # relabelling x- and y- axes
+  labs(x = "Time Worked (Hours)", # x-axis time worked
+       y = "Probability of Cooking at Home", # y-axis probability of cooking
+       title = "Relationship between Hours Worked and my Cooking Habits") + 
+  # create title
+  # first layer: geom points showing data
+  geom_point(color = "steelblue", # change color
+             alpha = 0.4, # change opacity
+             shape = 21) + # make open circles
+  # second layer: geom line showing probability
+  geom_line(data = preds_dinner, # set data to prediction
+            mapping = aes(x = x, # x variable
+                          y = predicted), # y variable is predicted
+            color = "firebrick", # change color
+            linewidth = 1, # alter line width
+            inherit.aes = FALSE) + # don't use ggplot aes
+  # third layer: ribbon (95% CI Prediction)
+  geom_ribbon(data = preds_dinner, # data from prediction
+              mapping = aes(x = x, # set x axis data
+                            ymin = conf.low, 
+                            # lower confidence interval for ribbon
+                            ymax = conf.high), 
+              # upper confidence interval for ribbon
+              fill = "firebrick", # color of CI
+              alpha = 0.4, # opacity of CI
+              inherit.aes = FALSE) +# don't use ggplot aes
+  theme_minimal() # change theme
+```
+
+## e. Write a Caption
+
+***Figure 2. 
