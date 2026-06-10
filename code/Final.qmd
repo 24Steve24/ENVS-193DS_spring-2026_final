@@ -343,6 +343,8 @@ plogis(1.8462)
 
 # calculate odds ratio
 exp(-0.3039)
+# confidence intervals of odds ratio
+exp(confint(dinner_mod))
 
 # calculate the probability of cooking at home after working 8 hours
 ggpredict(dinner_mod,
@@ -397,4 +399,8 @@ ggplot(data = dinner_clean, # data from dinner_clean
 
 ## e. Write a Caption
 
-***Figure 2. 
+***Figure 2. Probability of Cooking Dinner differs based on hours worked.*** The figure depicts a the individual data points, predicted probability based on hours worked, and the confidence interval associated with the probability that I cook at home depending on how much I work, with 1 indicating I cook at home and 0 indicating I eat out. Small blue open circles represent individual observations of whether I cooked at home or not in relation to the amount I worked that day. The bold red line represents the model prediction of cooking at home given time worked (hours). Finally the red ribbon represents the 95% confidence interval. Data collected by Stephen Bond from 2026-04-20 to 2026-05-30.
+
+## f. Write About Your Results
+
+The probability of cooking at home when time worked is 0 hours is 0.86. With every 1 hour increase in time worked, the odds of me cooking at home decrease by a factor of 0.74(95% CI:[0.536, 0.969], p = 0.04, $\alpha$ = 0.05). When working 8 hours, the probability of me cooking at home is 0.36(95% CI:[0.13, 0.67]). The model coefficient of 0.74 from the odds ratio summary along with the predicted probability curve from Figure 2. decreasing from 0.86 at 0 hours to 0.36 at 8 hours, indicate that I tend to cook dinner at home more often when I work fewer hours.
