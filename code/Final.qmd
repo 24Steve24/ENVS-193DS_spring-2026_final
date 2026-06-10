@@ -29,11 +29,11 @@ library(DHARMa) # residual diagnostic simulation
 library(ggeffects) # model predictions
 library(ggplot2) # visualizations
 
-# read in data
-nests <- read_csv(here("data", "nest_data_final.csv")) 
-# read in and make object for nest data
-dinner <- read_csv(here("data", "Dinner_Data.csv")) 
+# read in data nest data
+nests <- read_csv(here("data", "nest_data_final.csv"))
+
 # read in and make object for personal data
+dinner <- read_csv(here("data", "Dinner_Data.csv")) 
 
 ```
 
@@ -257,4 +257,45 @@ According to the results from part j., at tree height of 600 cm, the probability
 
 ## a. Comparing Visualizations
 
-- 
+### How are the visualizations different from each other in the way you have represented your data?
+
+My final affective visualization was extremely different from my initial exploratory visualization in Homework 2 as the data represented and the formats were drastically altered. I originally chose to create a histogram showing count data of where dinner was cooked over the different days of the week and the background scatterplot for a generalized linear model that demonstrated the probability of cooking at home on the y axis and hours worked on the x axis; however, my affective visualization created individual figures that depicted the values of each variable depending on that specific day. While my original visualization had no connection between time, whether I cooked at home or ate out, and hours I worked, the affective visualization was a calander this instantly incorporate data on the day of the week, with images that depicted hours worked and whether I cooked or ate out.
+
+### What similarities do you see between all your visualizations?
+
+At its core, these visualizations depict individual data points that give insight of how many hours I worked in one day and whether or not I cooked dinner at home that day. Whether its a open circle on the scatter plot background of a GLM model or the number of cracks on one plate holding dinner or a takeout bag, these styles reflect an overall trend that connects my hours working with whether I cooked at home or not.  
+
+### What patterns (e.g. differences in means/counts/propotions/medians, trends through time, relationships between variables) do you see in each visualization? Are these different between visualizations? If so, why? If not, why not?
+
+Both visualizations show the same pattern, as hours worked increases the proportion of days I ordered food out increases (and cooking at home decreases). In the explanatory visualization, this is shown by most data points on the probability line of 1.0 being clustered around low hours worked and high counts on the 0.0 line clustering at high hours worked, whereas my affective visualization portrayal a similar relationship through increased cracks on plates (hours worked) predominantly on plates with takeout bags. The patterns seem similar to one another because both draw from the same data set, the only difference is the style in which I communicate these specific data points. 
+
+### What kinds of feedback did you get during week 9 workshop or from the instructors? How did you implement or try those suggestions? If you tried and kept those suggestions, explain how and why; if not, explain why not?
+
+During workshop 9 my main feedback was to include more of the explanatory variables that I kept tract of in my affective visualization, rather than just using hours worked and whether I cooked dinner or not. I implemented these suggestions by adding more novel characteristics to my calendar like color of the plate to represent whether I grocery shopped and number of prongs on a fork to indicate how many assignments I had due that day. I ended up keeping these suggestions by recreating my visualization and drawing these factors in with colored pencil because I felt as though they added more depth to my research question and demonstrated how other variables might have an affect on my dinner habits, not just hours I worked.
+
+## b. Designing an Analysis
+
+My primary research question was "How does daily work hours relate to my decision to cook dinner at home or eat out?" My predictor variable was hours worked which is a continuous numerical variable and my response variable was whether or not I cooked at home, an example of categorical, binary data.
+
+Given my central question and my variables of interest, an analysis that I could apply to my research question is a generalized linear model or a logistic regression to me more specific. This analysis makes sense because my central question is examining how one variable (hours worked) affects the likelihood of another variable (whether I cook at home or not). Additionally, since the response variable is binary a logistic regression fits best.
+
+## c. Check any Assumptions and Run your Analysis
+
+```{r}
+#| label: Cleaning Data
+#| warning: false
+#| message: false
+
+# store dinner data as dinner_clean
+dinner_clean <- dinner |>
+  # clean names, making lowercase and underscore
+  clean_names() |>
+  # name treatments
+  mutate(cooked_at_home_y_n = as.numeric(case_when(
+    # mutate yes to "1"
+    cooked_at_home_y_n == "Yes" ~ "1",
+    # mutate no to "0"
+    cooked_at_home_y_n == "No" ~ "0")))
+```
+
+As a small side note, I would like to acknowledge that when running GLMs it is common practice to make model tables to demonstrate the various interactions between variables and run an AIC to find which model fits the data best; however, after speaking with Professor 
