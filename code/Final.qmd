@@ -1,7 +1,7 @@
 ---
 title: "ENVS 193DS Final"
 author: "Stephen Bond"
-Date: "2026/06/09"
+date: "2026/06/09"
 format: 
   pdf:
     toc: true # display table of contents
