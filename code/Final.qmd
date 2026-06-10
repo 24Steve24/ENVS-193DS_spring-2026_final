@@ -141,6 +141,7 @@ AICc(
   nest_model0,
   nest_model1
 ) |>
+  # arranging outputs in order from lowest to highest
   arrange(AICc)
 ```
 
@@ -160,6 +161,8 @@ plot(
   simulateResiduals(nest_model1)
 )
 ```
+
+The QQ plot indicates that there is a uniform distribution of the data, since the points follow the reference line. On the right is the residuals vs. predicted plots. Since the residuals have no distinct pattern, they are randomly scattered and have a random distribution of residuals. The assumption to use a generalized linear model is met
 
 ## h. Visualize the Model Predictions
 
@@ -185,10 +188,10 @@ preds$scientific_name <- preds$group
 #| message: false
 
 # base layer: ggplot
-ggplot(data = nests_clean,
-       mapping = aes(x = height_cm,
-                     y = case_control,
-                     color = as.factor(scientific_name))) +
+ggplot(data = nests_clean, # set data to nest_clean
+       mapping = aes(x = height_cm, # x-axis height
+                     y = case_control, # y-axis nest occurence
+                     color = as.factor(scientific_name))) + # color based on ant name
   # relabelling x- and y-axis
   labs(x = "Height of Acacia (cm)", # x-axis height
        y = "Predicted Nest Presence", # y-axis nest probability
@@ -303,11 +306,12 @@ As a small side note, I would like to acknowledge that when running GLMs it is c
 ### Write in Model
 
 ```{r}
-#| lable: Establishing Dinner model
+#| label: Establishing Dinner model
 #| message: false
 #| warning: false
 
-dinner_mod <- glm(cooked_at_home_y_n ~ time_worked_hours, # set variables of interest
+dinner_mod <- glm(cooked_at_home_y_n ~ time_worked_hours, 
+                  # set variables of interest
                   data = dinner_clean,# set data to dinner_clean
                   family = "binomial") # binomial family distribution
 ```
@@ -327,7 +331,7 @@ plot(
 )
 ```
 
-The DHARMa diagnostic, demonstrates through the QQ plot that the residuals follow a uniform distribution since the points follow the red guideline and has a KS test value of p = 0.879. Additionally the dispersion test and outlier tell us no residuals experience a significant amount of dispersion or act as outlines impacting results. Additionally the right figure tells us that no significant problems were detected between the residuals and predicted.
+The DHARMa diagnostic, demonstrates through the QQ plot that the residuals follow a uniform distribution since the points follow the red guideline and has a KS test value of p = 0.879. Additionally the dispersion test and outlier tell us no residuals experience a significant amount of dispersion or act as outlines impacting results. Additionally the right figure tells us that no significant problems were detected between the residuals and predicted. The assumptions to use a generalized linear model are met.
 
 ### Model Coefficients and Calculating Probabilities
 
@@ -336,6 +340,7 @@ The DHARMa diagnostic, demonstrates through the QQ plot that the residuals follo
 #| warning: false
 #| message: false
 
+# create a summary table of models coefficients
 summary(dinner_mod)
 
 # calculate probability of cooking at home when I work 0 hours
