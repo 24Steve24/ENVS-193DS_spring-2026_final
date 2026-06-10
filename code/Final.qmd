@@ -98,10 +98,10 @@ The 1s and 0s in the case_control column indicates whether or not a tree contain
 ## c. Purpose of Study
 
 ### Tree Height
-Tree height is a numerical, continuous variable measured in cm. This variable can influence the probability of nest occurrence because as tree height increases  
+Tree height is a continuous variable measured in cm. This variable can influence the probability of nest occurrence as tree height increases the probability of nest occurrence also increases because they might provide more shelter from predators or procide necessary vantage points to identify food sources. This is supported by the fact that tree architecture plays an important role in nest site selection (Discussion, Paragraph 2) and that after running a logistic regression model it was found that each 1 m increase in height increased the odds of a bird nesting in a tree by 20% ("Results", Paragraph 2)    
 
 ### Acacia Ant Species
-This is where I will describe the variable 
+Acacia Ant Species is a categorical variable, broken into three species C. mimosae, C. sjostedti, and C. nigriceps. The articles discusses how the presence of aggressive ants could cause decreasing in the number of nests due to the fact that these are nest predators and might inhibit their ability to find food (Introduction, Paragraph 3); however, they also discuss how the presence of aggressive ants might increase the probability of nesting occurences because they ward off predators making these trees safer for bird to live and raise offspring (Introduction, Paragraph 3)
 
 ## d. Table of Models
 
