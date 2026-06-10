@@ -46,7 +46,7 @@ In part 1, the researchers used a Generalized Linear Model (GLM) to reach their 
 ## b. Suggestions for rewriting
 
 ### Part 1. 
-We found that American Avocets do not use microhabitats in a random fashion, but rather with respect to distance to water edge. In this sense, distance to a water edge predictor the likelihood American Avocet use a microhabitat.
+We found that American Avocets do not use microhabitats in a random fashion, but rather with respect to distance to water edge. In this sense, distance to a water edge predictos the likelihood American Avocet use a microhabitat.
 
 ### Part 2.
 When looking at the distribution of American Avocet, Forster's Tern, and Black-necked Stilt, we found that each species was not spread randomly among habitats. Rather, each species presence differed based on habitat most likely due to assuming a certain niche in each habitat. This conclusion takes into consideration managed pond, non-tidal marsh, salt pond, tidal marsh, and tidal mudflat as habitats.
@@ -101,7 +101,7 @@ The 1s and 0s in the case_control column indicates whether or not a tree contain
 Tree height is a continuous variable measured in cm. This variable can influence the probability of nest occurrence as tree height increases the probability of nest occurrence also increases because they might provide more shelter from predators or procide necessary vantage points to identify food sources. This is supported by the fact that tree architecture plays an important role in nest site selection (Discussion, Paragraph 2) and that after running a logistic regression model it was found that each 1 m increase in height increased the odds of a bird nesting in a tree by 20% ("Results", Paragraph 2)    
 
 ### Acacia Ant Species
-Acacia Ant Species is a categorical variable, broken into three species C. mimosae, C. sjostedti, and C. nigriceps. The articles discusses how the presence of aggressive ants could cause decreasing in the number of nests due to the fact that these are nest predators and might inhibit their ability to find food (Introduction, Paragraph 3); however, they also discuss how the presence of aggressive ants might increase the probability of nesting occurences because they ward off predators making these trees safer for bird to live and raise offspring (Introduction, Paragraph 3)
+Acacia Ant Species is a categorical variable, broken into three species C. mimosae, C. sjostedti, and C. nigriceps. The articles discusses how the presence of aggressive ants could cause decreasing in the number of nests due to the fact that these are nest predators and might inhibit their ability to find food ("Introduction", Paragraph 3); however, they also discuss how the presence of aggressive ants might increase the probability of nesting occurences because they ward off predators making these trees safer for bird to live and raise offspring ("Introduction", Paragraph 3)
 
 ## d. Table of Models
 
@@ -281,7 +281,7 @@ During workshop 9 my main feedback was to include more of the explanatory variab
 
 ## b. Designing an Analysis
 
-My primary research question was "How does daily work hours relate to my decision to cook dinner at home or eat out?" My predictor variable was hours worked which is a continuous numerical variable and my response variable was whether or not I cooked at home, an example of categorical, binary data.
+My primary research question was "How does daily work hours relate to my decision to cook dinner at home or eat out?" My predictor variable was hours worked which is a continuous variable and my response variable was whether or not I cooked at home, an example of categorical, binary data.
 
 Given my central question and my variables of interest, an analysis that I could apply to my research question is a generalized linear model with a binomial error distribution. This analysis makes sense because my central question is examining how one variable (hours worked) affects the likelihood of another variable (whether I cook at home or not). Additionally, since the response variable is binary a logistic regression fits best.
 
