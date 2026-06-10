@@ -277,7 +277,7 @@ During workshop 9 my main feedback was to include more of the explanatory variab
 
 My primary research question was "How does daily work hours relate to my decision to cook dinner at home or eat out?" My predictor variable was hours worked which is a continuous numerical variable and my response variable was whether or not I cooked at home, an example of categorical, binary data.
 
-Given my central question and my variables of interest, an analysis that I could apply to my research question is a generalized linear model or a logistic regression to me more specific. This analysis makes sense because my central question is examining how one variable (hours worked) affects the likelihood of another variable (whether I cook at home or not). Additionally, since the response variable is binary a logistic regression fits best.
+Given my central question and my variables of interest, an analysis that I could apply to my research question is a generalized linear model with a binomial error distribution. This analysis makes sense because my central question is examining how one variable (hours worked) affects the likelihood of another variable (whether I cook at home or not). Additionally, since the response variable is binary a logistic regression fits best.
 
 ## c. Check any Assumptions and Run your Analysis
 
@@ -298,4 +298,54 @@ dinner_clean <- dinner |>
     cooked_at_home_y_n == "No" ~ "0")))
 ```
 
-As a small side note, I would like to acknowledge that when running GLMs it is common practice to make model tables to demonstrate the various interactions between variables and run an AIC to find which model fits the data best; however, after speaking with Professor 
+As a small side note, I would like to acknowledge that when running GLMs it is common practice to make model tables to demonstrate the various interactions between variables and run an AIC to find which model fits the data best; however, after speaking with Professor Bui I determined since I am only examining the affect between two variables these were unnecessary. Additionally, since my data points were independent observations my data meets that assumption for ther analysis. Furthermore, the response variable is binomial meaning it is distributed following an expoential family distribution
+
+### Write in Model
+
+```{r}
+#| lable: Establishing Dinner model
+#| message: false
+#| warning: false
+
+dinner_mod <- glm(cooked_at_home_y_n ~ time_worked_hours, # set variables of interest
+                  data = dinner_clean,# set data to dinner_clean
+                  family = "binomial") # binomial family distribution
+```
+
+### Check the Diagnostics with DHARMa
+
+```{r}
+#| Label: Diagnostic check with DHARMa
+#| warning: false
+#| message: false
+#| fig-height: 8
+#| fig-width: 10
+
+# run diagnostic check using DHARMa package
+plot(
+  simulateResiduals(dinner_mod) # use dinner model
+)
+```
+
+The DHARMa diagnostic, demonstrates through the QQ plot that the residuals follow a uniform distribution since the points follow the red guideline and has a KS test value of p = 0.879. Additionally the dispersion test and outlier tell us no residuals experience a significant amount of dispersion or act as outlines impacting results. Additionally the right figure tells us that no significant problems were detected between the residuals and predicted.
+
+### Share Model Coefficients 
+
+```{r}
+#| label: Share Model Coefficients
+#| warning: false
+#| message: false
+
+summary(dinner_mod)
+
+# calculate probability of cooking at home when I work 0 hours
+plogis(1.8462)
+
+# calculate odds ratio
+exp(-0.3039)
+
+# calculate the probability of cooking at home after working 8 hours
+ggpredict(dinner_mod,
+          terms = "time_worked_hours [8]")
+```
+
